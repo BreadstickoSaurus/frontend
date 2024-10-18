@@ -1,85 +1,110 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg"/>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <div class="hamburger-menu"></div>
+    <nav :class="{ 'menu-open': isMenuOpen }">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/about">Login</RouterLink>
+    </nav>
+    <div :class="{ 'menu-open': isMenuOpen }" class="hamburger" @click="toggleMenu">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </header>
 
   <RouterView />
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      isMenuOpen: false
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    }
+  }
+};
+</script>
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4em;
+  width: 100%;
+  padding: 0 2em;
 }
-
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  height: 60%;
 }
 
 nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  display: flex;
+  gap: 1em;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.hamburger {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-foreground);
+  border-radius: 2px;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.hamburger.menu-open span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 5px);
 }
 
-nav a:first-of-type {
-  border: 0;
+.hamburger.menu-open span:nth-child(2) {
+  opacity: 0;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.hamburger.menu-open span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -5px);
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
+@media (max-width: 768px) {
   nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
+    display: none;
+    position: absolute;
+    top: 4em;
+    right: 0;
+    background-color: var(--color-background);
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    z-index: 999;
+    gap: 0;
+  }
 
-    padding: 1rem 0;
-    margin-top: 1rem;
+  nav a {
+    line-height: 3em;
+  }
+
+  nav.menu-open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
   }
 }
 </style>
