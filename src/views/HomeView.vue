@@ -1,9 +1,19 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import SearchBar from '../components/SearchBar.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <search-bar v-model:search="search"></search-bar>
   </main>
 </template>
+<script>
+export default {
+  name: "HomeView.vue",
+  data() {
+    return {
+      search: ''
+    }
+  }
+}
+</script>

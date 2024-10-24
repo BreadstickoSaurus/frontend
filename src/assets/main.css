@@ -1,4 +1,5 @@
 @import './base.css';
+@import './fonts/nf.css';
 
 #app {
   font-weight: normal;
@@ -9,6 +10,16 @@ a {
   color: var(--color-highlight);
   transition: 0.4s;
   padding: 3px;
+}
+
+button, input, textarea {
+  border: none;
+  padding: .675em .75em;
+  border-radius: .25em;
+}
+
+button {
+  cursor: pointer;
 }
 
 @media (hover: hover) {
