@@ -2,7 +2,10 @@
 @import './fonts/nf.css';
 
 #app {
+  max-width: 1280px;
+  margin: 0 auto;
   font-weight: normal;
+  min-height: 100vh;
 }
 
 a {

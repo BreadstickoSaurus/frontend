@@ -9,7 +9,7 @@ import { RouterLink, RouterView } from 'vue-router';
     <div class="hamburger-menu"></div>
     <nav :class="{ 'menu-open': isMenuOpen }">
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
+      <RouterLink to="/collection">Collection</RouterLink>
       <RouterLink to="/about">About</RouterLink>
       <RouterLink to="/about">About</RouterLink>
       <RouterLink to="/about">Login</RouterLink>
