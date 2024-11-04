@@ -1,9 +1,8 @@
-<script setup>
-</script>
-
 <template>
   <main>
-    <aside><img src="/404.png" alt="404"></aside>
+    <aside>
+        <carousel :images="item.images"></carousel>
+    </aside>
     <article>
         <h2>{{ item.title }}</h2>
         <div class="detail-container" v-if="item.developer">
@@ -38,82 +37,94 @@
 </template>
 
 <script>
-export default {
-  name: "DetailsView.vue",
-  created() {
-    this.fetchItemDetails();
-  },
-  data() {
-    return {
-        item: {}
-    }
-  },
-  methods: {
-    fetchItemDetails() {
-        const id = this.$route.params.id;
-        this.item = {
-            gameid: 1,
-            collectionid: 1,
-            title: "Final Fantasy III",
-            description: "Final Fantasy III is a role-playing video game developed and published by Square. It is known for introducing the job system, allowing players to customize their characters' abilities.",
-            releasedate: "1990-04-27",
-            state: "New",
-            platform: {
-                id: 1,
-                name: "Famicom",
-                description: "The Famicom, also known as the Nintendo Entertainment System (NES) in North America, is an 8-bit home video game console developed by Nintendo.",
-                releasedate: "1983-07-15"
-            },
-            releasecountry: {
-                code: "JP",
-                name: {
-                    code: "JP",
-                    name: "Japan"
-                },
-            },
-            publisher: {
-                id: 1,
-                name: "Square",
-                description: "Square was a Japanese video game company known for its iconic role-playing games, such as the Final Fantasy series. It later merged with Enix to become Square Enix.",
-                country: "Japan"
-            },
-            developer: {
-                id: 1,
-                name: "Square",
-                description: "Square was a Japanese video game developer known for producing the critically acclaimed Final Fantasy series and other RPG classics.",
-                country: {
-                    code: "JP",
-                    name: "Japan"
-                },
-            },
-            genre: {
-                id: 1,
-                name: "Role-Playing Game (RPG)"
-            },
-            wishlisted: false,
-            alttitles: [
-                "ファイナルファンタジーIII",
-                "Final Fantasy III DS",
-                "Final Fantasy III Pixel Remaster"
-            ]
-        }
+import Carousel from '@/components/Carousel.vue';
 
+export default {
+    name: "DetailsView.vue",
+    components: {
+        Carousel
+    },
+    created() {
+        this.fetchItemDetails();
+    },
+    data() {
+        return {
+            item: {}
+        }
+    },
+    methods: {
+        fetchItemDetails() {
+            const id = this.$route.params.id;
+            this.item = {
+                gameid: 1,
+                collectionid: 1,
+                title: "Final Fantasy III",
+                description: "Final Fantasy III is a role-playing video game developed and published by Square. It is known for introducing the job system, allowing players to customize their characters' abilities.",
+                releasedate: "1990-04-27",
+                state: "New",
+                platform: {
+                    id: 1,
+                    name: "Famicom",
+                    description: "The Famicom, also known as the Nintendo Entertainment System (NES) in North America, is an 8-bit home video game console developed by Nintendo.",
+                    releasedate: "1983-07-15"
+                },
+                releasecountry: {
+                    code: "JP",
+                    name: {
+                        code: "JP",
+                        name: "Japan"
+                    },
+                },
+                publisher: {
+                    id: 1,
+                    name: "Square",
+                    description: "Square was a Japanese video game company known for its iconic role-playing games, such as the Final Fantasy series. It later merged with Enix to become Square Enix.",
+                    country: "Japan"
+                },
+                developer: {
+                    id: 1,
+                    name: "Square",
+                    description: "Square was a Japanese video game developer known for producing the critically acclaimed Final Fantasy series and other RPG classics.",
+                    country: {
+                        code: "JP",
+                        name: "Japan"
+                    },
+                },
+                genre: {
+                    id: 1,
+                    name: "Role-Playing Game (RPG)"
+                },
+                wishlisted: false,
+                alttitles: [
+                    "ファイナルファンタジーIII",
+                    "Final Fantasy III DS",
+                    "Final Fantasy III Pixel Remaster"
+                ],
+                images: [
+                    "https://i.etsystatic.com/17007874/r/il/0b6b1e/1915299738/il_1080xN.1915299738_db3m.jpg",
+                    "https://cdn.mobygames.com/covers/1398118-final-fantasy-iii-snes-manual.jpg",
+                    "https://www.lukiegames.com/assets/images/SNES/snes_final_fantasy_3_p_wgtfw8.jpg",
+                    "https://commondatastorage.googleapis.com/images.pricecharting.com/ddde76e98ff152086493d94b01614ef9da0d87d81fbd82765d2954566d7e1cd8/1600.jpg",
+                    "https://upload.wikimedia.org/wikipedia/en/8/86/Ff3cover.jpg",
+                ]
+            }
+        }
     }
-  }
 }
 </script>
 <style scoped>
 aside {
-    width: 500px;
+    width: fit-content;
+    max-width: 60em;
 }
-aside img {
-    width: 100%;
+article {
+    margin-top: 1em;
 }
 main {
-  margin: 0 auto;
-  display: flex;
-  gap: 1em;
-  margin-top: 1em;
+    margin: 0 auto;
+    display: flex;
+    gap: 1em;
+    margin-top: 1em;
 }
 @media (max-width: 768px) {
     main {
