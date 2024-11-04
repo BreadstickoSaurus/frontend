@@ -115,20 +115,18 @@ export default {
 <style scoped>
 aside {
     width: fit-content;
-    max-width: 60em;
-}
-article {
-    margin-top: 1em;
+    max-width: 100%;
 }
 main {
     margin: 0 auto;
     display: flex;
-    gap: 1em;
+    gap: 2em;
     margin-top: 1em;
 }
 @media (max-width: 768px) {
     main {
         display: block;
+        padding: 0 1em;
     }
 }
 h2 {
@@ -140,6 +138,9 @@ h3 {
 }
 .detail-container {
     display: flex;
+}
+.detail-container:nth-child(even) {
+    background-color: var(--color-background-soft);
 }
 .detail-container h3 {
     flex-basis: 8em;
