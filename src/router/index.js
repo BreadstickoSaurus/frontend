@@ -1,4 +1,5 @@
 import BrowseCollectionView from '@/views/BrowseCollectionView.vue'
+import DetailsView from '@/views/DetailsView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
@@ -20,8 +21,13 @@ const router = createRouter({
     },
     {
       path: '/collection',
-      name: 'Browse Collection',
+      name: 'browseCollection',
       component: BrowseCollectionView
+    },
+    {
+      path: '/details/:id',
+      name: 'details',
+      component: DetailsView
     }
   ]
 })

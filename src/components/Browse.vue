@@ -40,7 +40,6 @@ ul {
     gap: 2em;
 }
 li {
-    list-style: none;
     background-color: var(--color-background-mute);
     border-radius: 1em;
     overflow: hidden;
