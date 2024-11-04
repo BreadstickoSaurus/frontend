@@ -81,7 +81,7 @@ export default {
 }
 #thumbnail-splide .splide__slide.is-active {
     opacity: 1;
-    border: 1px solid var(--color-text);
+    border: 1px solid var(--color-highlight);
 }
 .splide__slide img {
     width: 100%;
