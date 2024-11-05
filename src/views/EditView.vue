@@ -72,6 +72,11 @@
                 <label for="platform">description</label>
                 <textarea @input="resizeTextArea" name="description" id="description" v-model="newItem.description"></textarea>
             </div>
+            <div class="buttons-container">
+                <button title="Delete" @click="delete" class="btn-warning">Delete</button>
+                <button title="Cancel" @click="cancel">Cancel</button>
+                <button title="Save" type="submit" class="btn-attention">Save</button>
+            </div>
         </form>
     </main>
 </template>
@@ -190,11 +195,9 @@ export default {
             area.style.height = area.scrollHeight + 'px';
         },
         removeAltTitle(e, i) {
-            e.preventDefault();
             this.newItem.alttitles.splice(i, 1);
         },
         addAltTitle(e) {
-            e.preventDefault();
             if (this.newTitle !== "" && !this.newItem.alttitles.includes(this.newTitle)) {
                 this.newItem.alttitles.push(this.newTitle);
                 this.newTitle = "";
@@ -203,6 +206,12 @@ export default {
         },
         onFormSubmit(e) {
             e.preventDefault();
+        },
+        delete() {
+            
+        },
+        cancel() {
+            this.$router.back();
         }
     }
 }
@@ -211,6 +220,7 @@ export default {
 aside {
     width: fit-content;
     max-width: 100%;
+    margin-bottom: 2em;
 }
 form>* {
     margin-bottom: .5em;
@@ -233,6 +243,7 @@ main {
 #title {
     font-size: 2.5em;
     padding: .2em;
+    width: 100%;
 }
 label {
     font-size: 1.2em;
@@ -276,5 +287,13 @@ fieldset button {
 fieldset input {
     width: 100%;
     padding-right: 3em;
+}
+.buttons-container {
+    display: flex;
+    gap: .5em;
+    margin-top: 1em;
+}
+.btn-warning{
+    margin-right: auto;
 }
 </style>

@@ -40,6 +40,24 @@ textarea, input {
   cursor: text;
 }
 
+.btn-warning {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: #dc3545e0;
+}
+
+.btn-attention {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-attention:hover {
+  background-color: #007bffd0;
+}
+
 @media (hover: hover) {
   a:hover {
     background-color: var(--color-highlight-background);
