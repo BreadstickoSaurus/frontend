@@ -233,11 +233,11 @@ main {
     display: flex;
     gap: 2em;
     margin-top: 1em;
+    padding: 0 1em;
 }
 @media (max-width: 768px) {
     main {
         display: block;
-        padding: 0 1em;
     }
 }
 #title {
@@ -248,12 +248,13 @@ main {
 label {
     font-size: 1.2em;
     text-transform: capitalize;
+    flex-shrink: 0;
 }
 .detail-container {
     display: flex;
 }
 .detail-container label {
-    flex-basis: 9em;
+    flex-basis: 8em;
 }
 .description-container {
     margin-top: 1em;
@@ -270,6 +271,9 @@ textarea {
 }
 .detail-container input,select,fieldset {
     flex-grow: 1;
+}
+select {
+    width: 100%;
 }
 fieldset {
     border: none;

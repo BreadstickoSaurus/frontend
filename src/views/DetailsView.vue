@@ -122,11 +122,11 @@ main {
     display: flex;
     gap: 2em;
     margin-top: 1em;
+    padding: 0 1em;
 }
 @media (max-width: 768px) {
     main {
         display: block;
-        padding: 0 1em;
     }
 }
 h2 {
