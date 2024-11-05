@@ -19,14 +19,25 @@ a {
   padding: 3px;
 }
 
-button, input, textarea {
+button, input, textarea, select {
   border: none;
   padding: .675em .75em;
   border-radius: .25em;
+  background-color: var(--color-background-mute);
+  color: var(--color-text);
+  cursor: pointer;
 }
 
-button {
-  cursor: pointer;
+input:hover, button:hover, select:hover {
+  background-color: var(--color-background-soft);
+}
+
+input:focus, button:focus, textarea:focus, select:focus {
+  outline: var(--color-highlight) solid 1px;
+}
+
+textarea, input {
+  cursor: text;
 }
 
 @media (hover: hover) {

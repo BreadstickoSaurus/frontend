@@ -55,21 +55,12 @@ export default {
 input {
     border-radius: var(--r);
     padding-left: 1em;
+    padding-right: 5.5em;
     width: 100%;
-}
-input:focus {
-    outline: var(--color-highlight) solid 1px;
 }
 #search {
     border-radius: 0 var(--r) var(--r) 0;
     padding-right: 1em;
-}
-input, button {
-    background-color: var(--color-background-mute);
-    color: var(--color-text);
-}
-input:hover, button:hover {
-    background-color: var(--color-background-soft);
 }
 #clear {
     border-radius: 0;

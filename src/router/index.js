@@ -1,5 +1,6 @@
 import BrowseCollectionView from '@/views/BrowseCollectionView.vue'
 import DetailsView from '@/views/DetailsView.vue'
+import EditView from '@/views/EditView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
@@ -28,6 +29,11 @@ const router = createRouter({
       path: '/details/:id',
       name: 'details',
       component: DetailsView
+    },
+    {
+      path: '/edit/:id',
+      name: 'edit',
+      component: EditView
     }
   ]
 })
