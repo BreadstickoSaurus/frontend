@@ -11,7 +11,7 @@
                     <option disabled selected>Select Developer</option>
                     <option v-for="developer in developers" :value="developer.developer_id">{{ developer.developer_name }}</option>
                 </select>
-                <button>+</button>
+                <button @click="addDeveloper">+</button>
             </div>
             <div class="detail-container">
                 <label for="publisher">publisher</label>
@@ -19,7 +19,7 @@
                     <option disabled selected>Select Publisher</option>
                     <option v-for="publisher in publishers" :value="publisher.publisher_id">{{ publisher.publisher_name }}</option>
                 </select>
-                <button>+</button>
+                <button @click="addPublisher">+</button>
             </div>
             <div class="detail-container">
                 <label for="releasedate">release date</label>
@@ -38,7 +38,7 @@
                     <option disabled selected>Select Genre</option>
                     <option v-for="genre in genres" :value="genre.genre_id">{{ genre.genre_name }}</option>
                 </select>
-                <button>+</button>
+                <button @click="addGenre">+</button>
             </div>
             <div class="detail-container">
                 <label for="platform">platform</label>
@@ -46,7 +46,7 @@
                     <option disabled selected>Select Platform</option>
                     <option v-for="platform in platforms" :value="platform.platform_id">{{ platform.platform_name }}</option>
                 </select>
-                <button>+</button>
+                <button @click="addPlatform">+</button>
             </div>
             <div class="detail-container">
                 <label for="alttitles">alt titles</label>
@@ -79,16 +79,32 @@
             </div>
         </form>
     </main>
+    <modal :visible="modalVisible" @close="modalClose">
+        <add-developer v-if="modalContents === 'dev'" @close="modalClose" :countries="countries"></add-developer>
+        <add-publisher v-if="modalContents === 'pub'" @close="modalClose" :countries="countries"></add-publisher>
+        <add-genre v-if="modalContents === 'gen'" @close="modalClose"></add-genre>
+        <add-platform v-if="modalContents === 'pla'" @close="modalClose"></add-platform>
+    </modal>
 </template>
 
 <script>
 import Carousel from '@/components/Carousel.vue';
+import AddDeveloper from '@/components/forms/AddDeveloper.vue';
+import AddGenre from '@/components/forms/AddGenre.vue';
+import AddPlatform from '@/components/forms/AddPlatform.vue';
+import AddPublisher from '@/components/forms/AddPublisher.vue';
+import Modal from '@/components/Modal.vue';
 import DetailsService from '@/services/DetailsService';
 
 export default {
     name: "EditView.vue",
     components: {
-        Carousel
+        Carousel,
+        Modal,
+        AddDeveloper,
+        AddPublisher,
+        AddGenre,
+        AddPlatform
     },
     created() {
         const id = this.$route.params.id;
@@ -106,7 +122,9 @@ export default {
             genres: [],
             platforms: [],
             states: [],
-            newTitle: ""
+            newTitle: "",
+            modalVisible: false,
+            modalContents: null
         }
     },
     methods: {
@@ -208,11 +226,31 @@ export default {
             e.preventDefault();
         },
         delete() {
-            
+            return;
         },
         cancel() {
             this.$router.back();
-        }
+        },
+        modalClose() {
+            this.fetchOptionData();
+            this.modalVisible = false;
+        },
+        addDeveloper() {
+            this.modalContents = 'dev';
+            this.modalVisible = true;
+        },
+        addPublisher() {
+            this.modalContents = 'pub';
+            this.modalVisible = true;
+        },
+        addGenre() {
+            this.modalContents = 'gen';
+            this.modalVisible = true;
+        },
+        addPlatform() {
+            this.modalContents = 'pla';
+            this.modalVisible = true;
+        },
     }
 }
 </script>
