@@ -4,11 +4,11 @@
             <carousel :images="item.images"></carousel>
         </aside>
         <form @submit="onFormSubmit">
-            <input name="title" id="title" v-model="newItem.title" type="text">
+            <input name="title" id="title" v-model="newItem.title" type="text" placeholder="Title">
             <div class="detail-container">
                 <label for="developer">developer</label>
                 <select name="developer" id="developer" v-model="newItem.developer.id">
-                    <option disabled selected>Select Developer</option>
+                    <option disabled value="">Select Developer</option>
                     <option v-for="developer in developers" :value="developer.developer_id">{{ developer.developer_name }}</option>
                 </select>
                 <button @click="addDeveloper">+</button>
@@ -16,7 +16,7 @@
             <div class="detail-container">
                 <label for="publisher">publisher</label>
                 <select name="publisher" id="publisher" v-model="newItem.publisher.id">
-                    <option disabled selected>Select Publisher</option>
+                    <option disabled value="">Select Publisher</option>
                     <option v-for="publisher in publishers" :value="publisher.publisher_id">{{ publisher.publisher_name }}</option>
                 </select>
                 <button @click="addPublisher">+</button>
@@ -28,14 +28,14 @@
             <div class="detail-container">
                 <label for="country">country</label>
                 <select name="country" id="country" v-model="newItem.releasecountry.code">
-                    <option disabled selected>Select Country</option>
+                    <option disabled value="">Select Country</option>
                     <option v-for="country in countries" :value="country.country_code">{{ country.country_name }}</option>
                 </select>
             </div>
             <div class="detail-container">
                 <label for="genre">genre</label>
                 <select name="genre" id="genre" v-model="newItem.genre.id">
-                    <option disabled selected>Select Genre</option>
+                    <option disabled value="">Select Genre</option>
                     <option v-for="genre in genres" :value="genre.genre_id">{{ genre.genre_name }}</option>
                 </select>
                 <button @click="addGenre">+</button>
@@ -43,7 +43,7 @@
             <div class="detail-container">
                 <label for="platform">platform</label>
                 <select name="platform" id="platform" v-model="newItem.platform.id">
-                    <option disabled selected>Select Platform</option>
+                    <option disabled value="">Select Platform</option>
                     <option v-for="platform in platforms" :value="platform.platform_id">{{ platform.platform_name }}</option>
                 </select>
                 <button @click="addPlatform">+</button>
@@ -64,7 +64,7 @@
             <div class="detail-container">
                 <label for="state">state</label>
                 <select name="state" id="state" v-model="newItem.state">
-                    <option disabled selected>Select State</option>
+                    <option disabled value="">Select State</option>
                     <option v-for="state in states" :value="state.state_name">{{ state.state_name }}</option>
                 </select>
             </div>
@@ -110,11 +110,22 @@ export default {
         const id = this.$route.params.id;
         this.fillNewItem(id);
         this.fetchOptionData();
+        console.log()
     },
     data() {
         return {
             item: {},
-            newItem: {},
+            newItem: {
+                developer: {id: ""},
+                publisher: {id: ""},
+                releasedate: "",
+                releasecountry: {code: ""},
+                genre: {id: ""},
+                platform: {id: ""},
+                alttitles: [],
+                state: "",
+                description: ""
+            },
             detailsService: new DetailsService(),
             developers: [],
             publishers: [],
@@ -184,18 +195,6 @@ export default {
             if (id) {
                 this.fetchItemDetails();
                 this.newItem = {...this.item}
-            } else {
-                this.newItem = {
-                    developer: {},
-                    publisher: {},
-                    releasedate: "",
-                    country: {},
-                    genre: {},
-                    platform: {},
-                    alttitles: [],
-                    state: "",
-                    description: ""
-                }
             }
         },
         async fetchOptionData() {
@@ -219,7 +218,6 @@ export default {
             if (this.newTitle !== "" && !this.newItem.alttitles.includes(this.newTitle)) {
                 this.newItem.alttitles.push(this.newTitle);
                 this.newTitle = "";
-                console.log(1)
             }
         },
         onFormSubmit(e) {

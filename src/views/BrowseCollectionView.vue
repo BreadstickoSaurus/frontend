@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     onItemClick(item) {
-      console.log(1);
       this.$router.push({ name: 'details', params: { id: item.id } });
     }
   }
