@@ -1,23 +1,15 @@
+import { post } from '@/services/helper';
+
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default class DetailsService {
-    async post(url, body) {
-        return fetch(
-            BASE_URL + url,
-            {
-                method: 'POST',
-                body: body
-            }
-        );
-    }
-
     async fetchDevelopers() {
         const response = await fetch(`${BASE_URL}developers`);
         return response.json().then(json => json.developers);
     }
 
     async addDeveloper(developer) {
-        const response = await this.post("developers", JSON.stringify(developer));
+        const response = await post("developers", JSON.stringify(developer));
         return response.json();
     }
 
@@ -27,7 +19,7 @@ export default class DetailsService {
     }
 
     async addPublisher(publisher) {
-        const response = await this.post("publishers", JSON.stringify(publisher));
+        const response = await post("publishers", JSON.stringify(publisher));
         return response.json();
     }
 
@@ -37,7 +29,7 @@ export default class DetailsService {
     }
 
     async addGenre(genre) {
-        const response = await this.post("genres", JSON.stringify(genre));
+        const response = await post("genres", JSON.stringify(genre));
         return response.json();
     }
 
@@ -47,7 +39,7 @@ export default class DetailsService {
     }
 
     async addPlatform(platform) {
-        const response = await this.post("platforms", JSON.stringify(platform));
+        const response = await post("platforms", JSON.stringify(platform));
         return response.json();
     }
 

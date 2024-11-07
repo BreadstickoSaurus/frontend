@@ -4,10 +4,10 @@
             <carousel :images="item.images"></carousel>
         </aside>
         <form @submit="onFormSubmit">
-            <input name="title" id="title" v-model="newItem.title" type="text" placeholder="Title">
+            <input name="title" id="title" v-model="newItem.title" type="text" placeholder="Title" required>
             <div class="detail-container">
                 <label for="developer">developer</label>
-                <select name="developer" id="developer" v-model="newItem.developer.id">
+                <select name="developer" id="developer" v-model="newItem.developer.id" required>
                     <option disabled value="">Select Developer</option>
                     <option v-for="developer in developers" :value="developer.developer_id">{{ developer.developer_name }}</option>
                 </select>
@@ -15,7 +15,7 @@
             </div>
             <div class="detail-container">
                 <label for="publisher">publisher</label>
-                <select name="publisher" id="publisher" v-model="newItem.publisher.id">
+                <select name="publisher" id="publisher" v-model="newItem.publisher.id" required>
                     <option disabled value="">Select Publisher</option>
                     <option v-for="publisher in publishers" :value="publisher.publisher_id">{{ publisher.publisher_name }}</option>
                 </select>
@@ -23,18 +23,18 @@
             </div>
             <div class="detail-container">
                 <label for="releasedate">release date</label>
-                <input name="releasedate" id="releasedate" type="date" v-model="newItem.releasedate">
+                <input name="releasedate" id="releasedate" type="date" v-model="newItem.releasedate" required>
             </div>
             <div class="detail-container">
                 <label for="country">country</label>
-                <select name="country" id="country" v-model="newItem.releasecountry.code">
+                <select name="country" id="country" v-model="newItem.releasecountry.code" required>
                     <option disabled value="">Select Country</option>
                     <option v-for="country in countries" :value="country.country_code">{{ country.country_name }}</option>
                 </select>
             </div>
             <div class="detail-container">
                 <label for="genre">genre</label>
-                <select name="genre" id="genre" v-model="newItem.genre.id">
+                <select name="genre" id="genre" v-model="newItem.genre.id" required>
                     <option disabled value="">Select Genre</option>
                     <option v-for="genre in genres" :value="genre.genre_id">{{ genre.genre_name }}</option>
                 </select>
@@ -42,7 +42,7 @@
             </div>
             <div class="detail-container">
                 <label for="platform">platform</label>
-                <select name="platform" id="platform" v-model="newItem.platform.id">
+                <select name="platform" id="platform" v-model="newItem.platform.id" required>
                     <option disabled value="">Select Platform</option>
                     <option v-for="platform in platforms" :value="platform.platform_id">{{ platform.platform_name }}</option>
                 </select>
@@ -63,14 +63,14 @@
             </div>
             <div class="detail-container">
                 <label for="state">state</label>
-                <select name="state" id="state" v-model="newItem.state">
+                <select name="state" id="state" v-model="newItem.state.id" required>
                     <option disabled value="">Select State</option>
-                    <option v-for="state in states" :value="state.state_name">{{ state.state_name }}</option>
+                    <option v-for="state in states" :value="state.state_id">{{ state.state_name }}</option>
                 </select>
             </div>
             <div class="description-container">
                 <label for="platform">description</label>
-                <textarea @input="resizeTextArea" name="description" id="description" v-model="newItem.description"></textarea>
+                <textarea @input="resizeTextArea" name="description" id="description" v-model="newItem.description" required    ></textarea>
             </div>
             <div class="buttons-container">
                 <button title="Delete" @click="delete" class="btn-warning" type="button">Delete</button>
@@ -95,6 +95,7 @@ import AddPlatform from '@/components/forms/AddPlatform.vue';
 import AddPublisher from '@/components/forms/AddPublisher.vue';
 import Modal from '@/components/Modal.vue';
 import DetailsService from '@/services/DetailsService';
+import GamesService from '@/services/GamesService';
 
 export default {
     name: "EditView.vue",
@@ -122,10 +123,11 @@ export default {
                 genre: {id: ""},
                 platform: {id: ""},
                 alttitles: [],
-                state: "",
+                state: {id: ""},
                 description: ""
             },
             detailsService: new DetailsService(),
+            gameService: new GamesService(),
             developers: [],
             publishers: [],
             countries: [],
@@ -220,6 +222,20 @@ export default {
         },
         onFormSubmit(e) {
             e.preventDefault();
+            this.gameService.addGameToCollection(
+                {
+                    title: this.newItem.title,
+                    description: this.newItem.description,
+                    releaseDate: this.newItem.releasedate,
+                    stateId: this.newItem.state.id,
+                    platformId: this.newItem.platform.id,
+                    ReleaseCountryCode: this.newItem.releasecountry.code,
+                    publisherID: this.newItem.publisher.id,
+                    developerID: this.newItem.developer.id,
+                    genreId: this.newItem.genre.id
+                }
+            );
+            //TODO: alt titles and images
         },
         delete() {
             return;
