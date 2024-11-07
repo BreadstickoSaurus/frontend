@@ -2,11 +2,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export default class LoginService {
     constructor() {
-        if(LoginService._instance) {
-            return LoginService._instance;
-        }
-        this.userId = null;
-        LoginService._instance = this;
+        this.userId = localStorage.userId ? localStorage.userId : null;
     }
 
     async register(name, pw) {
@@ -34,12 +30,14 @@ export default class LoginService {
                 })
             }
         );
-        const json = response.json();
-        this.userId = json.status ? await json.id : null;
+        const json = await response.json();
+        this.userId = json.success ? await json.id : null;
+        localStorage.setItem("userId", this.userId);
         return json;
     }
 
     logout() {
         this.userId = null;
+        localStorage.removeItem("userId");
     }
 }
