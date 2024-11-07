@@ -4,7 +4,10 @@
         <carousel :images="item.images"></carousel>
     </aside>
     <article>
-        <h2>{{ item.title }}</h2>
+        <div class="header-container">
+            <h2>{{ item.title }}</h2>
+            <i class="nf nf-fa-edit edit-button" @click="edit"></i>
+        </div>
         <div class="detail-container" v-if="item.developer">
             <h3>developer</h3><p>{{ item.developer.name }}</p>
         </div>
@@ -108,6 +111,9 @@ export default {
                     "https://upload.wikimedia.org/wikipedia/en/8/86/Ff3cover.jpg",
                 ]
             }
+        },
+        edit() {
+            this.$router.push({ name: 'edit', params: { id: this.$route.params.id } });
         }
     }
 }
@@ -147,5 +153,17 @@ h3 {
 }
 .description-container {
     margin-top: 1em;
+}
+.edit-button {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+.edit-button:hover {
+    color: var(--color-highlight);
+}
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 </style>
