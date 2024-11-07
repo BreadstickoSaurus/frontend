@@ -5,12 +5,23 @@ import LoginService from "./LoginService";
 export default class GamesService {
     async fetchCollection(userId) {
         const response = await fetch(`${BASE_URL}game/collection/${userId}`);
-        return response.json().then(json => json.developers);
+        return response.json().then(json => json);
+    }
+
+    async fetchGameDetails(gameId) {
+        const response = await fetch(`${BASE_URL}game/${gameId}`);
+        return response.json();
     }
 
     async addGameToCollection(game) {
         const loginService = new LoginService();
         const response = await post(`game/collection/${loginService.userId}`, JSON.stringify(game));
+        return response.json();
+    }
+
+    async addImages(images, gameId) {
+        const loginService = new LoginService();
+        const response = await post(`game/${gameId}/images`, images);
         return response.json();
     }
 }

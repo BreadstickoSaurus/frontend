@@ -1,7 +1,7 @@
 <template>
     <main>
         <aside>
-            <carousel :images="item.images"></carousel>
+            <image-picker :old-images="item.images" ref="picker"></image-picker>
         </aside>
         <form @submit="onFormSubmit">
             <input name="title" id="title" v-model="newItem.title" type="text" placeholder="Title" required>
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import Carousel from '@/components/Carousel.vue';
+import ImagePicker from '@/components/ImagePicker.vue';
 import AddDeveloper from '@/components/forms/AddDeveloper.vue';
 import AddGenre from '@/components/forms/AddGenre.vue';
 import AddPlatform from '@/components/forms/AddPlatform.vue';
@@ -100,7 +100,7 @@ import GamesService from '@/services/GamesService';
 export default {
     name: "EditView.vue",
     components: {
-        Carousel,
+        ImagePicker,
         Modal,
         AddDeveloper,
         AddPublisher,
@@ -140,62 +140,11 @@ export default {
         }
     },
     methods: {
-        fetchItemDetails() {
-            this.item = {
-                gameid: 1,
-                collectionid: 1,
-                title: "Final Fantasy III",
-                description: "Final Fantasy III is a role-playing video game developed and published by Square. It is known for introducing the job system, allowing players to customize their characters' abilities.",
-                releasedate: "1990-04-27",
-                state: "New",
-                platform: {
-                    id: 1,
-                    name: "Famicom",
-                    description: "The Famicom, also known as the Nintendo Entertainment System (NES) in North America, is an 8-bit home video game console developed by Nintendo.",
-                    releasedate: "1983-07-15"
-                },
-                releasecountry: {
-                    code: "JP",
-                    name: "Japan"
-                },
-                publisher: {
-                    id: 1,
-                    name: "Square",
-                    description: "Square was a Japanese video game company known for its iconic role-playing games, such as the Final Fantasy series. It later merged with Enix to become Square Enix.",
-                    country: "Japan"
-                },
-                developer: {
-                    id: 1,
-                    name: "Square",
-                    description: "Square was a Japanese video game developer known for producing the critically acclaimed Final Fantasy series and other RPG classics.",
-                    country: {
-                        code: "JP",
-                        name: "Japan"
-                    },
-                },
-                genre: {
-                    id: 3,
-                    name: "Role-Playing Game (RPG)"
-                },
-                wishlisted: false,
-                alttitles: [
-                    "ファイナルファンタジーIII",
-                    "Final Fantasy III DS",
-                    "Final Fantasy III Pixel Remaster"
-                ],
-                images: [
-                    "https://i.etsystatic.com/17007874/r/il/0b6b1e/1915299738/il_1080xN.1915299738_db3m.jpg",
-                    "https://cdn.mobygames.com/covers/1398118-final-fantasy-iii-snes-manual.jpg",
-                    "https://www.lukiegames.com/assets/images/SNES/snes_final_fantasy_3_p_wgtfw8.jpg",
-                    "https://commondatastorage.googleapis.com/images.pricecharting.com/ddde76e98ff152086493d94b01614ef9da0d87d81fbd82765d2954566d7e1cd8/1600.jpg",
-                    "https://upload.wikimedia.org/wikipedia/en/8/86/Ff3cover.jpg",
-                ]
-            }
-        },
-        fillNewItem(id) {
+        async fillNewItem(id) {
             if (id) {
-                this.fetchItemDetails();
-                this.newItem = {...this.item}
+                this.item = await this.gameService.fetchGameDetails(id);
+                this.newItem = {...this.item};
+                this.resizeTextArea();
             }
         },
         async fetchOptionData() {
@@ -220,22 +169,39 @@ export default {
                 this.newTitle = "";
             }
         },
-        onFormSubmit(e) {
+        async onFormSubmit(e) {
             e.preventDefault();
-            this.gameService.addGameToCollection(
-                {
-                    title: this.newItem.title,
-                    description: this.newItem.description,
-                    releaseDate: this.newItem.releasedate,
-                    stateId: this.newItem.state.id,
-                    platformId: this.newItem.platform.id,
-                    ReleaseCountryCode: this.newItem.releasecountry.code,
-                    publisherID: this.newItem.publisher.id,
-                    developerID: this.newItem.developer.id,
-                    genreId: this.newItem.genre.id
-                }
-            );
+            let id = this.$route.params.id;
+            if (id) {
+                //TODO
+            } else {
+                const response = await this.gameService.addGameToCollection(this.formatNewItem())
+                id = await response.gameId
+            }
+            
+            this.submitImages(id);
             //TODO: alt titles and images
+        },
+        submitImages(gameId) {
+            const newImages = this.$refs.picker.getNewImageFormData();
+            const removedImages = this.$refs.picker.removedImages;
+            if(newImages.has('pictures[]'))
+                this.gameService.addImages(newImages, gameId);
+            if(Array.isArray(removedImages) && removedImages.length)
+                this.gameService.removeImages(removedImages);
+        },
+        formatNewItem() {
+            return {
+                title: this.newItem.title,
+                description: this.newItem.description,
+                releaseDate: this.newItem.releasedate,
+                stateId: this.newItem.state.id,
+                platformId: this.newItem.platform.id,
+                ReleaseCountryCode: this.newItem.releasecountry.code,
+                publisherID: this.newItem.publisher.id,
+                developerID: this.newItem.developer.id,
+                genreId: this.newItem.genre.id
+            };
         },
         delete() {
             return;
