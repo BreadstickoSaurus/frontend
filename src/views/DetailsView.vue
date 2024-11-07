@@ -119,9 +119,9 @@ export default {
 }
 </script>
 <style scoped>
-aside {
-    width: fit-content;
-    max-width: 100%;
+aside, article {
+    flex: 1 1 0;
+    width: 0;
 }
 main {
     margin: 0 auto;
@@ -133,6 +133,9 @@ main {
 @media (max-width: 768px) {
     main {
         display: block;
+    }
+    aside, article {
+        width: 100%;
     }
 }
 h2 {

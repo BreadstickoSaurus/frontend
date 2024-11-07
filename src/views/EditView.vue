@@ -267,16 +267,12 @@ export default {
 }
 </script>
 <style scoped>
-aside {
-    width: fit-content;
-    max-width: 100%;
-    margin-bottom: 2em;
+aside, article {
+    flex: 1 1 0;
+    width: 0;
 }
 form>* {
     margin-bottom: .5em;
-}
-form {
-    width: 100%;
 }
 main {
     margin: 0 auto;
@@ -288,6 +284,9 @@ main {
 @media (max-width: 768px) {
     main {
         display: block;
+    }
+    aside, article {
+        width: 100%;
     }
 }
 #title {

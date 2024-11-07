@@ -1,13 +1,15 @@
 <template>
     <splide id="main-splide" :options="mainOptions" ref="main">
-        <splide-slide v-for="url in images" :key="url">
+        <splide-slide v-if="images" v-for="url in images" :key="url">
             <img :src="url" :alt="url">
         </splide-slide>
+        <slot></slot>
     </splide>
     <splide id="thumbnail-splide" :options="thumbsOptions" ref="thumbs">
-        <splide-slide v-for="url in images" :key="url">
+        <splide-slide v-if="images" v-for="url in images" :key="url">
             <img :src="url" :alt="url">
         </splide-slide>
+        <slot></slot>
     </splide>
 </template>
 
@@ -24,8 +26,7 @@ export default {
     },
     props: {
         images: {
-            type: Array,
-            required: true
+            type: Array
         }
     },
     setup() {
@@ -57,6 +58,7 @@ export default {
                     gap: '.5em'
                 },
             },
+            focus: "center"
         };
 
         onMounted(() => {
@@ -88,9 +90,6 @@ export default {
     height: 100%;
     object-fit: contain;
     max-height: 40em;
-}
-#thumbnail-splide-list {
-    justify-content: center;
 }
 #main-splide {
     margin-bottom: 1em;
