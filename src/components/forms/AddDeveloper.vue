@@ -4,20 +4,22 @@
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Developer Name" v-model="newDeveloper.name">
         <label for="country">Country</label>
-        <select name="country" id="country" v-model="newDeveloper.country">
+        <select name="country" id="country" v-model="newDeveloper.countryCode">
             <option value="" disabled selected>Select Country</option>
             <option v-for="country in countries" :value="country.country_code">{{ country.country_name }}</option>
         </select>
         <label for="platform">Description</label>
         <textarea name="description" id="description" v-model="newDeveloper.description"></textarea>
         <div class="buttons-container">
-            <button title="Cancel" @click="close">Cancel</button>
+            <button title="Cancel" @click="close" type="button">Cancel</button>
             <button title="Save" type="submit" class="btn-attention">Save</button>
         </div>
     </form>
 </template>
 
 <script>
+import DetailsService from '@/services/DetailsService';
+
 export default {
     name: "AddDeveloper",
     emits: ["close"],
@@ -29,7 +31,8 @@ export default {
     },
     data() {
         return {
-            newDeveloper: {country:""}
+            newDeveloper: {countryCode:""},
+            detailsService: new DetailsService()
         }
     },
     methods: {
@@ -38,8 +41,7 @@ export default {
         },
         save(e) {
             e.preventDefault();
-            // write to server
-            this.$parent.$parent.newItem.developer = this.newDeveloper;
+            this.detailsService.addDeveloper(this.newDeveloper);
             this.close();
         }
     }

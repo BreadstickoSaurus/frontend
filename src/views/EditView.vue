@@ -11,7 +11,7 @@
                     <option disabled value="">Select Developer</option>
                     <option v-for="developer in developers" :value="developer.developer_id">{{ developer.developer_name }}</option>
                 </select>
-                <button @click="addDeveloper">+</button>
+                <button @click="addDeveloper" type="button">+</button>
             </div>
             <div class="detail-container">
                 <label for="publisher">publisher</label>
@@ -19,7 +19,7 @@
                     <option disabled value="">Select Publisher</option>
                     <option v-for="publisher in publishers" :value="publisher.publisher_id">{{ publisher.publisher_name }}</option>
                 </select>
-                <button @click="addPublisher">+</button>
+                <button @click="addPublisher" type="button">+</button>
             </div>
             <div class="detail-container">
                 <label for="releasedate">release date</label>
@@ -38,7 +38,7 @@
                     <option disabled value="">Select Genre</option>
                     <option v-for="genre in genres" :value="genre.genre_id">{{ genre.genre_name }}</option>
                 </select>
-                <button @click="addGenre">+</button>
+                <button @click="addGenre" type="button">+</button>
             </div>
             <div class="detail-container">
                 <label for="platform">platform</label>
@@ -46,18 +46,18 @@
                     <option disabled value="">Select Platform</option>
                     <option v-for="platform in platforms" :value="platform.platform_id">{{ platform.platform_name }}</option>
                 </select>
-                <button @click="addPlatform">+</button>
+                <button @click="addPlatform" type="button">+</button>
             </div>
             <div class="detail-container">
                 <label for="alttitles">alt titles</label>
                 <fieldset name="alttitles" id="alttitles">
                     <div v-for="(_, i) in newItem.alttitles" class="alt-title-container">
                         <input :name="'title-' + i" :id="'title-' + i" v-model="newItem.alttitles[i]" type="text">
-                        <button title="Add alt title" @click="(e) => removeAltTitle(e, i)"><i class="nf nf-fa-close"></i></button>
+                        <button title="Add alt title" @click="(e) => removeAltTitle(e, i)" type="button"><i class="nf nf-fa-close"></i></button>
                     </div>
                     <div class="alt-title-container">
                         <input name="newtitle" id="newtitle" v-model="newTitle" type="text" placeholder="Add alt title">
-                        <button title="Add alt title" @click="addAltTitle"><i class="nf nf-fa-check"></i></button>
+                        <button title="Add alt title" @click="addAltTitle" type="button"><i class="nf nf-fa-check"></i></button>
                     </div>
                 </fieldset>
             </div>
@@ -73,8 +73,8 @@
                 <textarea @input="resizeTextArea" name="description" id="description" v-model="newItem.description"></textarea>
             </div>
             <div class="buttons-container">
-                <button title="Delete" @click="delete" class="btn-warning">Delete</button>
-                <button title="Cancel" @click="cancel">Cancel</button>
+                <button title="Delete" @click="delete" class="btn-warning" type="button">Delete</button>
+                <button title="Cancel" @click="cancel" type="button">Cancel</button>
                 <button title="Save" type="submit" class="btn-attention">Save</button>
             </div>
         </form>
@@ -110,7 +110,6 @@ export default {
         const id = this.$route.params.id;
         this.fillNewItem(id);
         this.fetchOptionData();
-        console.log()
     },
     data() {
         return {
@@ -204,7 +203,6 @@ export default {
             this.genres = await this.detailsService.fetchGenres();
             this.platforms = await this.detailsService.fetchPlatforms();
             this.states = await this.detailsService.fetchStates();
-            this.resizeTextArea();
         },
         resizeTextArea() {
             const area = document.querySelector('textarea');

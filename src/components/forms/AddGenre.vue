@@ -4,19 +4,22 @@
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Genre Name" v-model="newGenre">
         <div class="buttons-container">
-            <button title="Cancel" @click="close">Cancel</button>
+            <button title="Cancel" @click="close" type="button">Cancel</button>
             <button title="Save" type="submit" class="btn-attention">Save</button>
         </div>
     </form>
 </template>
 
 <script>
+import DetailsService from '@/services/DetailsService';
+
 export default {
     name: "AddGenre",
     emits: ["close"],
     data() {
         return {
-            newGenre: ""
+            newGenre: "",
+            detailsService: new DetailsService()
         }
     },
     methods: {
@@ -25,8 +28,7 @@ export default {
         },
         save(e) {
             e.preventDefault();
-            // write to server
-            this.$parent.$parent.newItem.genre = this.newGenre;
+            this.detailsService.addGenre({name: this.newGenre});
             this.close();
         }
     }

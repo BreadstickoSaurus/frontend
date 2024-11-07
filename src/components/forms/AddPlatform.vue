@@ -4,23 +4,26 @@
         <label for="name">Name</label>
         <input id="name" name="name" type="text" placeholder="Platform Name" v-model="newPlatform.name">
         <label for="date">Name</label>
-        <input type="date" name="date" id="date" v-model="newPlatform.date">
+        <input type="date" name="date" id="date" v-model="newPlatform.releaseDate">
         <label for="platform">Description</label>
         <textarea name="description" id="description" v-model="newPlatform.description"></textarea>
         <div class="buttons-container">
-            <button title="Cancel" @click="close">Cancel</button>
+            <button title="Cancel" @click="close" type="button">Cancel</button>
             <button title="Save" type="submit" class="btn-attention">Save</button>
         </div>
     </form>
 </template>
 
 <script>
+import DetailsService from '@/services/DetailsService';
+
 export default {
     name: "AddPlatform",
     emits: ["close"],
     data() {
         return {
-            newPlatform: {}
+            newPlatform: {},
+            detailsService: new DetailsService()
         }
     },
     methods: {
@@ -29,8 +32,7 @@ export default {
         },
         save(e) {
             e.preventDefault();
-            // write to server
-            this.$parent.$parent.newItem.platform = this.newPlatform;
+            this.detailsService.addPlatform(this.newPlatform);
             this.close();
         }
     }
