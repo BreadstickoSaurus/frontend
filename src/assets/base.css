@@ -22,6 +22,12 @@
 
   --color-highlight: hsla(160, 100%, 37%, 1);
   --color-highlight-background: hsla(160, 100%, 37%, 0.2);
+
+  --color-warning: #dc3545;
+  --color-warning-hover: #dc3545e0;
+
+  --color-attention: #007bff;
+  --color-attention-hover: #007bffd0;
 }
 
 /* semantic color variables for this project */

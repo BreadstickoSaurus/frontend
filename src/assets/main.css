@@ -42,21 +42,21 @@ textarea, input {
 }
 
 .btn-warning {
-  background-color: #dc3545;
+  background-color: var(--color-warning);
   color: white;
 }
 
 .btn-warning:hover {
-  background-color: #dc3545e0;
+  background-color: var(--color-warning-hover);
 }
 
 .btn-attention {
-  background-color: #007bff;
+  background-color: var(--color-attention);
   color: white;
 }
 
 .btn-attention:hover {
-  background-color: #007bffd0;
+  background-color: var(--color-attention-hover);
 }
 
 @media (hover: hover) {
