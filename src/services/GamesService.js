@@ -20,8 +20,20 @@ export default class GamesService {
     }
 
     async addImages(images, gameId) {
-        const loginService = new LoginService();
         const response = await post(`game/${gameId}/images`, images);
+        return response.json();
+    }
+
+    async removeImage(removedImage, gameId) {
+        const response = await fetch(
+            `${BASE_URL}game/${gameId}/images`,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    imageUrl: removedImage
+                })
+            }
+        );
         return response.json();
     }
 }

@@ -23,11 +23,11 @@
             </div>
             <div class="detail-container">
                 <label for="releasedate">release date</label>
-                <input name="releasedate" id="releasedate" type="date" v-model="newItem.releasedate" required>
+                <input name="releasedate" id="releasedate" type="date" v-model="newItem.releaseDate" required>
             </div>
             <div class="detail-container">
                 <label for="country">country</label>
-                <select name="country" id="country" v-model="newItem.releasecountry.code" required>
+                <select name="country" id="country" v-model="newItem.releaseCountry.code" required>
                     <option disabled value="">Select Country</option>
                     <option v-for="country in countries" :value="country.country_code">{{ country.country_name }}</option>
                 </select>
@@ -118,8 +118,8 @@ export default {
             newItem: {
                 developer: {id: ""},
                 publisher: {id: ""},
-                releasedate: "",
-                releasecountry: {code: ""},
+                releaseDate: "",
+                releaseCountry: {code: ""},
                 genre: {id: ""},
                 platform: {id: ""},
                 alttitles: [],
@@ -188,16 +188,16 @@ export default {
             if(newImages.has('pictures[]'))
                 this.gameService.addImages(newImages, gameId);
             if(Array.isArray(removedImages) && removedImages.length)
-                this.gameService.removeImages(removedImages);
+                removedImages.forEach(i => this.gameService.removeImage(i, gameId));
         },
         formatNewItem() {
             return {
                 title: this.newItem.title,
                 description: this.newItem.description,
-                releaseDate: this.newItem.releasedate,
+                releaseDate: this.newItem.releaseDate,
                 stateId: this.newItem.state.id,
                 platformId: this.newItem.platform.id,
-                ReleaseCountryCode: this.newItem.releasecountry.code,
+                ReleaseCountryCode: this.newItem.releaseCountry.code,
                 publisherID: this.newItem.publisher.id,
                 developerID: this.newItem.developer.id,
                 genreId: this.newItem.genre.id

@@ -33,15 +33,17 @@ export default {
             required: true
         }
     },
-    created() {
-        this.currentImages = this.oldImages;
-    },
     data() {
         return {
             removedImages: [],
             newImages: [],
             currentImages: [],
             previews: {}
+        }
+    },
+    watch: {
+        oldImages(val) {
+            this.currentImages = val;
         }
     },
     methods: {
