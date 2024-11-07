@@ -17,6 +17,7 @@ a {
   color: var(--color-highlight);
   transition: 0.4s;
   padding: 3px;
+  cursor: pointer;
 }
 
 button, input, textarea, select {

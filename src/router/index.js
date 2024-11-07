@@ -1,6 +1,8 @@
 import BrowseCollectionView from '@/views/BrowseCollectionView.vue'
 import DetailsView from '@/views/DetailsView.vue'
 import EditView from '@/views/EditView.vue'
+import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
@@ -39,6 +41,16 @@ const router = createRouter({
       path: '/new',
       name: 'new',
       component: EditView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
     }
   ]
 })
