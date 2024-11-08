@@ -173,7 +173,6 @@ export default {
             e.preventDefault();
             let id = this.$route.params.id;
             if (id) {
-                console.log(this.formatNewItem());
                 this.gameService.updateGame(this.formatNewItem(), id);
                 if (this.removedAltTitles.length)
                     this.removedAltTitles.forEach(e => this.gameService.removeAltTitle(e, id));

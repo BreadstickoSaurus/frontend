@@ -61,7 +61,6 @@ export default {
         async fetchItemDetails() {
             const id = this.$route.params.id;
             this.item = await this.gameService.fetchGameDetails(id);
-            console.log(this.item);
         },
         edit() {
             this.$router.push({ name: 'edit', params: { id: this.$route.params.id } });
