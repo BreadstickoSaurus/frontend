@@ -73,8 +73,8 @@
                 <textarea @input="resizeTextArea" name="description" id="description" v-model="newItem.game_description" required    ></textarea>
             </div>
             <div class="buttons-container">
-                <button title="Delete" @click="delete" class="btn-warning" type="button">Delete</button>
-                <button title="Cancel" @click="cancel" type="button">Cancel</button>
+                <button v-if="$route.params.id" title="Delete" @click="deleteGame" class="btn-warning" type="button">Delete</button>
+                <button title="Cancel" @click="cancel" type="button" id="cancel">Cancel</button>
                 <button title="Save" type="submit" class="btn-attention">Save</button>
             </div>
         </form>
@@ -88,11 +88,11 @@
 </template>
 
 <script>
-import ImagePicker from '@/components/ImagePicker.vue';
 import AddDeveloper from '@/components/forms/AddDeveloper.vue';
 import AddGenre from '@/components/forms/AddGenre.vue';
 import AddPlatform from '@/components/forms/AddPlatform.vue';
 import AddPublisher from '@/components/forms/AddPublisher.vue';
+import ImagePicker from '@/components/ImagePicker.vue';
 import Modal from '@/components/Modal.vue';
 import DetailsService from '@/services/DetailsService';
 import GamesService from '@/services/GamesService';
@@ -157,7 +157,6 @@ export default {
         },
         resizeTextArea() {
             const area = document.querySelector('textarea');
-            area.style.overflow = 'hidden';
             area.style.height = area.scrollHeight + 'px';
         },
         removeAltTitle(e, i) {
@@ -184,7 +183,7 @@ export default {
             this.submitImages(id);
             if (this.newAltTitles.length)
                 this.newAltTitles.forEach(e => this.gameService.addAltTitle(e, id));
-            this.$router.back();
+            this.$router.push({name: 'collection'});
         },
         submitImages(gameId) {
             const newImages = this.$refs.picker.getNewImageFormData();
@@ -207,8 +206,10 @@ export default {
                 genreId: this.newItem.genre.id
             };
         },
-        delete() {
-            return;
+        deleteGame() {
+            const id = this.$route.params.id;
+            this.gameService.deleteGame(id);
+            this.$router.push({name: 'collection'});
         },
         cancel() {
             this.$router.back();
@@ -316,7 +317,7 @@ fieldset input {
     gap: .5em;
     margin-top: 1em;
 }
-.btn-warning{
-    margin-right: auto;
+#cancel{
+    margin-left: auto;
 }
 </style>

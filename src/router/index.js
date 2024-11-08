@@ -24,7 +24,7 @@ const router = createRouter({
     },
     {
       path: '/collection',
-      name: 'browseCollection',
+      name: 'collection',
       component: BrowseCollectionView
     },
     {

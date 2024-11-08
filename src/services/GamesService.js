@@ -30,6 +30,16 @@ export default class GamesService {
         return response.json();
     }
 
+    async deleteGame(gameId) {
+        const response = await fetch(
+            `${BASE_URL}game/${gameId}`,
+            {
+                method: 'DELETE'
+            }
+        );
+        return response.json();
+    }
+
     async fetchImages(gameId) {
         const response = await fetch(`${BASE_URL}game/${gameId}/images`);
         return response.json().then(json => json.imageUrls);
