@@ -14,11 +14,11 @@
         <div class="detail-container" v-if="item.publisher">
             <h3>publisher</h3><p>{{ item.publisher.name }}</p>
         </div>
-        <div class="detail-container" v-if="item.releasedate">
-            <h3>release date</h3><p>{{ item.releasedate }}</p>
+        <div class="detail-container" v-if="item.releaseDate">
+            <h3>release date</h3><p>{{ item.releaseDate }}</p>
         </div>
-        <div class="detail-container" v-if="item.country">
-            <h3>country of release</h3><p>{{ item.country }}</p>
+        <div class="detail-container" v-if="item.releaseCountry">
+            <h3>country of release</h3><p>{{ item.releaseCountry.name }}</p>
         </div>
         <div class="detail-container" v-if="item.genre">
             <h3>genre</h3><p>{{ item.genre.name }}</p>
@@ -30,7 +30,7 @@
             <h3>alt titles</h3><ul><li v-for="title in item.alttitles">{{ title }}</li></ul>
         </div>
         <div class="detail-container" v-if="item.state">
-            <h3>state</h3><p>{{ item.state }}</p>
+            <h3>state</h3><p>{{ item.state.name }}</p>
         </div>
         <div class="description-container" v-if="item.description">
             <h3>description</h3><p>{{ item.description }}</p>
@@ -41,6 +41,7 @@
 
 <script>
 import Carousel from '@/components/Carousel.vue';
+import GamesService from '@/services/GamesService';
 
 export default {
     name: "DetailsView.vue",
@@ -52,65 +53,14 @@ export default {
     },
     data() {
         return {
-            item: {}
+            item: {},
+            gameService: new GamesService()
         }
     },
     methods: {
-        fetchItemDetails() {
+        async fetchItemDetails() {
             const id = this.$route.params.id;
-            this.item = {
-                gameid: 1,
-                collectionid: 1,
-                title: "Final Fantasy III",
-                description: "Final Fantasy III is a role-playing video game developed and published by Square. It is known for introducing the job system, allowing players to customize their characters' abilities.",
-                releasedate: "1990-04-27",
-                state: "New",
-                platform: {
-                    id: 1,
-                    name: "Famicom",
-                    description: "The Famicom, also known as the Nintendo Entertainment System (NES) in North America, is an 8-bit home video game console developed by Nintendo.",
-                    releasedate: "1983-07-15"
-                },
-                releasecountry: {
-                    code: "JP",
-                    name: {
-                        code: "JP",
-                        name: "Japan"
-                    },
-                },
-                publisher: {
-                    id: 1,
-                    name: "Square",
-                    description: "Square was a Japanese video game company known for its iconic role-playing games, such as the Final Fantasy series. It later merged with Enix to become Square Enix.",
-                    country: "Japan"
-                },
-                developer: {
-                    id: 1,
-                    name: "Square",
-                    description: "Square was a Japanese video game developer known for producing the critically acclaimed Final Fantasy series and other RPG classics.",
-                    country: {
-                        code: "JP",
-                        name: "Japan"
-                    },
-                },
-                genre: {
-                    id: 1,
-                    name: "Role-Playing Game (RPG)"
-                },
-                wishlisted: false,
-                alttitles: [
-                    "ファイナルファンタジーIII",
-                    "Final Fantasy III DS",
-                    "Final Fantasy III Pixel Remaster"
-                ],
-                images: [
-                    "https://i.etsystatic.com/17007874/r/il/0b6b1e/1915299738/il_1080xN.1915299738_db3m.jpg",
-                    "https://cdn.mobygames.com/covers/1398118-final-fantasy-iii-snes-manual.jpg",
-                    "https://www.lukiegames.com/assets/images/SNES/snes_final_fantasy_3_p_wgtfw8.jpg",
-                    "https://commondatastorage.googleapis.com/images.pricecharting.com/ddde76e98ff152086493d94b01614ef9da0d87d81fbd82765d2954566d7e1cd8/1600.jpg",
-                    "https://upload.wikimedia.org/wikipedia/en/8/86/Ff3cover.jpg",
-                ]
-            }
+            this.item = await this.gameService.fetchGameDetails(id);
         },
         edit() {
             this.$router.push({ name: 'edit', params: { id: this.$route.params.id } });
