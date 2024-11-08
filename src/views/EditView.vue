@@ -259,6 +259,7 @@ main {
     }
     aside, form {
         width: 100%;
+        margin-bottom: 2em;
     }
 }
 #title {
