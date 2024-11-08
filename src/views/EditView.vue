@@ -4,7 +4,7 @@
             <image-picker :old-images="item.images" ref="picker"></image-picker>
         </aside>
         <form @submit="onFormSubmit">
-            <input name="title" id="title" v-model="newItem.title" type="text" placeholder="Title" required>
+            <input name="title" id="title" v-model="newItem.game_title" type="text" placeholder="Title" required>
             <div class="detail-container">
                 <label for="developer">developer</label>
                 <select name="developer" id="developer" v-model="newItem.developer.id" required>
@@ -70,7 +70,7 @@
             </div>
             <div class="description-container">
                 <label for="platform">description</label>
-                <textarea @input="resizeTextArea" name="description" id="description" v-model="newItem.description" required    ></textarea>
+                <textarea @input="resizeTextArea" name="description" id="description" v-model="newItem.game_description" required    ></textarea>
             </div>
             <div class="buttons-container">
                 <button title="Delete" @click="delete" class="btn-warning" type="button">Delete</button>
@@ -118,13 +118,11 @@ export default {
             newItem: {
                 developer: {id: ""},
                 publisher: {id: ""},
-                releaseDate: "",
                 releaseCountry: {code: ""},
                 genre: {id: ""},
                 platform: {id: ""},
                 alttitles: [],
                 state: {id: ""},
-                description: ""
             },
             detailsService: new DetailsService(),
             gameService: new GamesService(),
@@ -187,6 +185,7 @@ export default {
             this.submitImages(id);
             if (this.newAltTitles.length)
                 this.newAltTitles.forEach(e => this.gameService.addAltTitle(e, id));
+            this.$router.back();
         },
         submitImages(gameId) {
             const newImages = this.$refs.picker.getNewImageFormData();
@@ -198,8 +197,8 @@ export default {
         },
         formatNewItem() {
             return {
-                title: this.newItem.title,
-                description: this.newItem.description,
+                title: this.newItem.game_title,
+                description: this.newItem.game_description,
                 releaseDate: this.newItem.releaseDate,
                 stateId: this.newItem.state.id,
                 platformId: this.newItem.platform.id,

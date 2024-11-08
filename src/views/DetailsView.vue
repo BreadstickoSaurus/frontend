@@ -5,7 +5,7 @@
     </aside>
     <article>
         <div class="header-container">
-            <h2>{{ item.title }}</h2>
+            <h2>{{ item.game_title }}</h2>
             <i class="nf nf-fa-edit edit-button" @click="edit"></i>
         </div>
         <div class="detail-container" v-if="item.developer">
@@ -32,8 +32,8 @@
         <div class="detail-container" v-if="item.state">
             <h3>state</h3><p>{{ item.state.name }}</p>
         </div>
-        <div class="description-container" v-if="item.description">
-            <h3>description</h3><p>{{ item.description }}</p>
+        <div class="description-container" v-if="item.game_description">
+            <h3>description</h3><p>{{ item.game_description }}</p>
         </div>
     </article>
   </main>
@@ -61,6 +61,7 @@ export default {
         async fetchItemDetails() {
             const id = this.$route.params.id;
             this.item = await this.gameService.fetchGameDetails(id);
+            console.log(this.item);
         },
         edit() {
             this.$router.push({ name: 'edit', params: { id: this.$route.params.id } });
@@ -118,5 +119,8 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.description-container p {
+    overflow-wrap: break-word;
 }
 </style>
