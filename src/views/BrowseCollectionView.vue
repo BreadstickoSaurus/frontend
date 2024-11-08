@@ -1,6 +1,9 @@
 <template>
   <main>
-    <search-bar v-model:search="search"></search-bar>
+    <div class="top-container">
+        <search-bar v-model:search="search"></search-bar>
+        <button v-if="this.loginService.userId" id="new" type="button" @click="addItem">Add Game</button>
+    </div>
     <p> {{ search }}</p>
     <browse :items="items" @on-item-click="onItemClick"></browse>
     <p>{{ message }}</p>
@@ -26,7 +29,8 @@ export default {
             search: '',
             message: '',
             items: [],
-            gameService: new GamesService()
+            gameService: new GamesService(),
+            loginService: new LoginService()
         }
     },
     methods: {
@@ -34,9 +38,8 @@ export default {
             this.$router.push({ name: 'details', params: { id: item.game_id } });
         },
         async fetchCollection() {
-            const loginService = new LoginService();
-            if(loginService.userId) {
-                const response = await this.gameService.fetchCollection(loginService.userId);
+            if(this.loginService.userId) {
+                const response = await this.gameService.fetchCollection(this.loginService.userId);
                 if (response.error)
                     this.message = "Your collection is empty";
                 else
@@ -44,6 +47,9 @@ export default {
             } else {
                 this.message = "Please log in or register to view your collection";
             }
+        },
+        addItem() {
+            this.$router.push('new')
         }
     }
 }
@@ -56,5 +62,15 @@ main {
     align-items: center;
     gap: 1em;
     margin-top: 1em;
+}
+.top-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+#new {
+    position: absolute;
+    right: 1em;
 }
 </style>
