@@ -239,7 +239,7 @@ export default {
 }
 </script>
 <style scoped>
-aside, article {
+aside, form {
     flex: 1 1 0;
     width: 0;
 }
@@ -257,7 +257,7 @@ main {
     main {
         display: block;
     }
-    aside, article {
+    aside, form {
         width: 100%;
     }
 }
