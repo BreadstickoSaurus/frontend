@@ -26,8 +26,8 @@
         <div class="detail-container" v-if="item.platform">
             <h3>platform</h3><p>{{ item.platform.name }}</p>
         </div>
-        <div class="detail-container" v-if="item.alttitles">
-            <h3>alt titles</h3><ul><li v-for="title in item.alttitles">{{ title }}</li></ul>
+        <div class="detail-container" v-if="item.altTitles">
+            <h3>alt titles</h3><ul><li v-for="title in item.altTitles">{{ title }}</li></ul>
         </div>
         <div class="detail-container" v-if="item.state">
             <h3>state</h3><p>{{ item.state.name }}</p>

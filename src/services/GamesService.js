@@ -63,11 +63,21 @@ export default class GamesService {
         return response.json();
     }
 
-    async addAltTitle(altTitle, gameId) {
-        return;
+    async addAltTitles(altTitles, gameId) {
+        const response = await post(`game/${gameId}/altTitles`, JSON.stringify({altTitles: altTitles}));
+        return response.json();
     }
 
-    async removeAltTitle(altTitle, gameId) {
-        return; //TODO
+    async removeAltTitles(altTitles, gameId) {
+        const response = await fetch(
+            `${BASE_URL}game/${gameId}/altTitles`,
+            {
+                method: 'DELETE',
+                body: JSON.stringify({
+                    altTitles: altTitles
+                })
+            }
+        );
+        return response.json();
     }
 }

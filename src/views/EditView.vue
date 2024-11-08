@@ -51,8 +51,8 @@
             <div class="detail-container">
                 <label for="alttitles">alt titles</label>
                 <fieldset name="alttitles" id="alttitles">
-                    <div v-for="(_, i) in newItem.alttitles" class="alt-title-container">
-                        <input :name="'title-' + i" :id="'title-' + i" v-model="newItem.alttitles[i]" type="text">
+                    <div v-for="(_, i) in newItem.altTitles" class="alt-title-container">
+                        <input :name="'title-' + i" :id="'title-' + i" v-model="newItem.altTitles[i]" type="text">
                         <button title="Add alt title" @click="(e) => removeAltTitle(e, i)" type="button"><i class="nf nf-fa-close"></i></button>
                     </div>
                     <div class="alt-title-container">
@@ -121,7 +121,7 @@ export default {
                 releaseCountry: {code: ""},
                 genre: {id: ""},
                 platform: {id: ""},
-                alttitles: [],
+                altTitles: [],
                 state: {id: ""},
             },
             detailsService: new DetailsService(),
@@ -133,8 +133,6 @@ export default {
             platforms: [],
             states: [],
             newTitle: "",
-            newAltTitles: [],
-            removedAltTitles: [],
             modalVisible: false,
             modalContents: null
         }
@@ -143,7 +141,7 @@ export default {
         async fillNewItem(id) {
             if (id) {
                 this.item = await this.gameService.fetchGameDetails(id);
-                this.newItem = {...this.item};
+                this.newItem = JSON.parse(JSON.stringify(this.item)); //deep copy
                 this.resizeTextArea();
             }
         },
@@ -160,11 +158,11 @@ export default {
             area.style.height = area.scrollHeight + 'px';
         },
         removeAltTitle(e, i) {
-            this.removedAltTitles.push(this.newItem.alttitles.splice(i, 1));
+            this.newItem.altTitles.splice(i, 1);
         },
         addAltTitle(e) {
-            if (this.newTitle !== "" && !this.newItem.alttitles.includes(this.newTitle)) {
-                this.newAltTitles.push(this.newTitle);
+            if (this.newTitle !== "" && !this.newItem.altTitles.includes(this.newTitle)) {
+                this.newItem.altTitles.push(this.newTitle);
                 this.newTitle = "";
             }
         },
@@ -173,17 +171,20 @@ export default {
             let id = this.$route.params.id;
             if (id) {
                 this.gameService.updateGame(this.formatNewItem(), id);
-                if (this.removedAltTitles.length)
-                    this.removedAltTitles.forEach(e => this.gameService.removeAltTitle(e, id));
+                const removedTitles = this.item.altTitles.filter(e => !this.newItem.altTitles.includes(e));
+                if (removedTitles.length)
+                    this.gameService.removeAltTitles(removedTitles, id);
             } else {
                 const response = await this.gameService.addGameToCollection(this.formatNewItem());
                 id = await response.gameId;
             }
             
             this.submitImages(id);
-            if (this.newAltTitles.length)
-                this.newAltTitles.forEach(e => this.gameService.addAltTitle(e, id));
-            this.$router.push({name: 'collection'});
+            const newTitles = this.newItem.altTitles.filter(e => !this.item.altTitles.includes(e));
+            if (newTitles.length)
+                this.gameService.addAltTitles(newTitles, id);
+
+            this.$router.push({name: 'details', params: {id: id}});
         },
         submitImages(gameId) {
             const newImages = this.$refs.picker.getNewImageFormData();
