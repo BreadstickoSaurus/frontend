@@ -135,6 +135,8 @@ export default {
             platforms: [],
             states: [],
             newTitle: "",
+            newAltTitles: [],
+            removedAltTitles: [],
             modalVisible: false,
             modalContents: null
         }
@@ -161,11 +163,11 @@ export default {
             area.style.height = area.scrollHeight + 'px';
         },
         removeAltTitle(e, i) {
-            this.newItem.alttitles.splice(i, 1);
+            this.removedAltTitles.push(this.newItem.alttitles.splice(i, 1));
         },
         addAltTitle(e) {
             if (this.newTitle !== "" && !this.newItem.alttitles.includes(this.newTitle)) {
-                this.newItem.alttitles.push(this.newTitle);
+                this.newAltTitles.push(this.newTitle);
                 this.newTitle = "";
             }
         },
@@ -175,13 +177,16 @@ export default {
             if (id) {
                 console.log(this.formatNewItem());
                 this.gameService.updateGame(this.formatNewItem(), id);
+                if (this.removedAltTitles.length)
+                    this.removedAltTitles.forEach(e => this.gameService.removeAltTitle(e, id));
             } else {
                 const response = await this.gameService.addGameToCollection(this.formatNewItem());
                 id = await response.gameId;
             }
             
             this.submitImages(id);
-            //TODO: alt titles and images
+            if (this.newAltTitles.length)
+                this.newAltTitles.forEach(e => this.gameService.addAltTitle(e, id));
         },
         submitImages(gameId) {
             const newImages = this.$refs.picker.getNewImageFormData();

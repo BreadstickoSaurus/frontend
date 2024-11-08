@@ -47,4 +47,12 @@ export default class GamesService {
         );
         return response.json();
     }
+
+    async addAltTitle(altTitle, gameId) {
+        return;
+    }
+
+    async removeAltTitle(altTitle, gameId) {
+        return; //TODO
+    }
 }
