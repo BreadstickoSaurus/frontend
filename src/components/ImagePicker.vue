@@ -30,7 +30,7 @@ export default {
     props: {
         oldImages: {
             type: Array,
-            required: true
+            required: false
         }
     },
     data() {
