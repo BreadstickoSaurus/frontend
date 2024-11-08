@@ -1,16 +1,21 @@
 <template>
     <ul>
         <li v-for="item in items" @click="onItemClick(item)">
-            <img :src="getThumbnail(item)" :alt="item.title">
+            <thumbnail :game-id="item.game_id" :alt="item.game_title"></thumbnail>
             <div class="titlebar">
-                <p tooltip>{{ item.title }}</p>
+                <p tooltip>{{ item.game_title }}</p>
             </div>
         </li>
     </ul>
 </template>
 <script>
+import Thumbnail from './Thumbnail.vue';
+
 export default {
     name: "Browse",
+    components: {
+        Thumbnail
+    },
     emits: ["onItemClick"],
     props: {
         items: {
@@ -26,8 +31,8 @@ export default {
         onItemClick(item) {
             this.$emit("onItemClick", item)
         },
-        getThumbnail(item) {
-            return "./404.png";
+        async getThumbnail(item) {
+            
         }
     }
 }

@@ -3,8 +3,9 @@ import { post } from "@/services/helper";
 import LoginService from "./LoginService";
 
 export default class GamesService {
-    async fetchCollection(userId) {
-        const response = await fetch(`${BASE_URL}game/collection/${userId}`);
+    async fetchCollection() {
+        const loginService = new LoginService();
+        const response = await fetch(`${BASE_URL}game/collection/${loginService.userId}`);
         return response.json().then(json => json);
     }
 
@@ -28,6 +29,11 @@ export default class GamesService {
             }
         );
         return response.json();
+    }
+
+    async fetchImages(gameId) {
+        const response = await fetch(`${BASE_URL}game/${gameId}/images`);
+        return response.json().then(json => json.imageUrls);
     }
 
     async addImages(images, gameId) {
