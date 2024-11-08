@@ -4,7 +4,7 @@
             <h2>Login</h2>
 
             <label for="name" v-if="name">Username</label>
-            <input name="name" id="name" type="name" v-model="name" autocomplete="username" placeholder="Username"></input>
+            <input name="name" id="name" type="text" v-model="name" autocomplete="username" placeholder="Username"></input>
             <label for="password" v-if="password">Password</label>
             <input name="password" id="password" type="password" v-model="password" autocomplete="current-password" placeholder="Password"></input>
 
