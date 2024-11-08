@@ -19,6 +19,17 @@ export default class GamesService {
         return response.json();
     }
 
+    async updateGame(game, gameId) {
+        const response = await fetch(
+            `${BASE_URL}game/${gameId}`,
+            {
+                method: 'PUT',
+                body: JSON.stringify(game)
+            }
+        );
+        return response.json();
+    }
+
     async addImages(images, gameId) {
         const response = await post(`game/${gameId}/images`, images);
         return response.json();

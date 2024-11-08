@@ -173,10 +173,11 @@ export default {
             e.preventDefault();
             let id = this.$route.params.id;
             if (id) {
-                //TODO
+                console.log(this.formatNewItem());
+                this.gameService.updateGame(this.formatNewItem(), id);
             } else {
-                const response = await this.gameService.addGameToCollection(this.formatNewItem())
-                id = await response.gameId
+                const response = await this.gameService.addGameToCollection(this.formatNewItem());
+                id = await response.gameId;
             }
             
             this.submitImages(id);
