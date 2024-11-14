@@ -3,7 +3,7 @@
         <aside>
             <image-picker :old-images="item.images" ref="picker"></image-picker>
         </aside>
-        <form @submit="onFormSubmit">
+        <form @submit="onFormSubmit" id="editform">
             <input name="title" id="title" v-model="newItem.game_title" type="text" placeholder="Title" required>
             <div class="detail-container">
                 <label for="developer">developer</label>
@@ -239,11 +239,11 @@ export default {
 }
 </script>
 <style scoped>
-aside, form {
+aside, #editform {
     flex: 1 1 0;
     width: 0;
 }
-form>* {
+#editform>* {
     margin-bottom: .5em;
 }
 main {
@@ -257,7 +257,7 @@ main {
     main {
         display: block;
     }
-    aside, form {
+    aside, #editform {
         width: 100%;
         margin-bottom: 2em;
     }
