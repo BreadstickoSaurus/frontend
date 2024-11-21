@@ -27,7 +27,7 @@
             <h3>platform</h3><p>{{ item.platform.name }}</p>
         </div>
         <div class="detail-container" v-if="item.altTitles">
-            <h3>alt titles</h3><ul><li v-for="title in item.altTitles">{{ title }}</li></ul>
+            <h3>alt titles</h3><ul><li v-for="title in item.altTitles" :key="title">{{ title }}</li></ul>
         </div>
         <div class="detail-container" v-if="item.state">
             <h3>state</h3><p>{{ item.state.name }}</p>
@@ -60,7 +60,7 @@ export default {
     methods: {
         async fetchItemDetails() {
             const id = this.$route.params.id;
-            this.item = await this.gameService.fetchGameDetails(id);
+            this.item = await this.gameService.details(id);
         },
         edit() {
             this.$router.push({ name: 'edit', params: { id: this.$route.params.id } });

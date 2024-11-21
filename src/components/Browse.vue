@@ -1,6 +1,6 @@
 <template>
     <ul>
-        <li v-for="item in items" @click="onItemClick(item)">
+        <li v-for="item in items" @click="onItemClick(item)" :key="item.game_id">
             <thumbnail :game-id="item.game_id" :alt="item.game_title"></thumbnail>
             <div class="titlebar">
                 <p tooltip>{{ item.game_title }}</p>
