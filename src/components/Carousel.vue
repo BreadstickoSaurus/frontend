@@ -1,12 +1,12 @@
 <template>
     <splide id="main-splide" :options="mainOptions" ref="main">
-        <splide-slide v-if="images" v-for="url in images" :key="url">
+        <splide-slide v-for="url in images" :key="url">
             <img :src="url" :alt="url">
         </splide-slide>
         <slot></slot>
     </splide>
     <splide id="thumbnail-splide" :options="thumbsOptions" ref="thumbs">
-        <splide-slide v-if="images" v-for="url in images" :key="url">
+        <splide-slide v-for="url in images" :key="url">
             <img :src="url" :alt="url">
         </splide-slide>
         <slot></slot>
