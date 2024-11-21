@@ -39,7 +39,7 @@ export default {
         },
         async fetchCollection() {
             if(this.loginService.userId) {
-                const response = await this.gameService.fetchCollection(this.loginService.userId);
+                const response = await this.gameService.all(this.loginService.userId);
                 if (response.error)
                     this.message = "Your collection is empty";
                 else

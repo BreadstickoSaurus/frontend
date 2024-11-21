@@ -1,10 +1,10 @@
 import BrowseCollectionView from '@/views/BrowseCollectionView.vue'
+import BrowseMarket from '@/views/BrowseMarket.vue'
 import DetailsView from '@/views/DetailsView.vue'
 import EditView from '@/views/EditView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: BrowseMarket
     },
     {
       path: '/about',

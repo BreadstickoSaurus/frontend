@@ -3,17 +3,17 @@ import { post } from "@/services/helper";
 import LoginService from "./LoginService";
 
 export default class GamesService {
-    async fetchCollection(userId) {
+    async all(userId) {
         const response = await fetch(`${BASE_URL}game/collection/${userId}`);
         return response.json();
     }
 
-    async fetchGameDetails(gameId) {
+    async details(gameId) {
         const response = await fetch(`${BASE_URL}game/${gameId}`);
         return response.json();
     }
 
-    async addGameToCollection(game) {
+    async addGame(game) {
         const loginService = new LoginService();
         const response = await post(`game/collection/${loginService.userId}`, JSON.stringify(game));
         return response.json();

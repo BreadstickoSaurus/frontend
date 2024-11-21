@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router';
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg"/>
+    <RouterLink to="/" class="logo"><img alt="Vue logo" src="@/assets/logo.svg"/></RouterLink>
 
     <div class="hamburger-menu"></div>
     <nav :class="{ 'menu-open': isMenuOpen }">
@@ -47,6 +47,14 @@ header {
 }
 .logo {
   height: 60%;
+}
+
+.logo img {
+  height: 100%;
+}
+
+.logo:hover {
+  background: none;
 }
 
 nav {
