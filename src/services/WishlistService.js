@@ -16,7 +16,7 @@ export default class WishlistService extends GamesService {
     }
 
     async search(q) {
-        const response = await post(`game/search/semantic`, JSON.stringify({query: q}));
+        const response = await fetch(`${BASE_URL}game/search/semantic?q=${q}`);
         return response.json();
     }
 }
