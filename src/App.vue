@@ -10,7 +10,7 @@ import { RouterLink, RouterView } from 'vue-router';
     <nav :class="{ 'menu-open': isMenuOpen }">
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/collection">Collection</RouterLink>
-      <RouterLink to="/collection">Wishes</RouterLink>
+      <RouterLink to="/wishlist">Wishlist</RouterLink>
       <RouterLink to="/Login">Login</RouterLink>
     </nav>
     <div :class="{ 'menu-open': isMenuOpen }" class="hamburger" @click="toggleMenu">

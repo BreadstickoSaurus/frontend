@@ -1,5 +1,7 @@
+import WishlistService from '@/services/WishlistService'
 import BrowseCollectionView from '@/views/BrowseCollectionView.vue'
 import BrowseMarket from '@/views/BrowseMarket.vue'
+import BrowseWishlistView from '@/views/BrowseWishlistView.vue'
 import DetailsView from '@/views/DetailsView.vue'
 import EditView from '@/views/EditView.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -28,6 +30,11 @@ const router = createRouter({
       component: BrowseCollectionView
     },
     {
+      path: '/wishlist',
+      name: 'wishlist',
+      component: BrowseWishlistView
+    },
+    {
       path: '/details/:id',
       name: 'details',
       component: DetailsView
@@ -35,12 +42,18 @@ const router = createRouter({
     {
       path: '/edit/:id',
       name: 'edit',
-      component: EditView
+      component: EditView,
     },
     {
       path: '/new',
       name: 'new',
       component: EditView
+    },
+    {
+      path: '/new/wish',
+      name: 'new-wish',
+      component: EditView,
+      props: {service: new WishlistService()}
     },
     {
       path: '/login',

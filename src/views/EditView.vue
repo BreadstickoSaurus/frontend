@@ -107,10 +107,14 @@ export default {
         AddGenre,
         AddPlatform
     },
+    props: {
+        service: GamesService
+    },
     created() {
         const id = this.$route.params.id;
         this.fillNewItem(id);
         this.fetchOptionData();
+        if (this.$props.service) this.gameService = this.$props.service
     },
     data() {
         return {
