@@ -16,6 +16,11 @@ export default class WishlistService extends GamesService {
     }
 
     async search(q) {
+        const response = await fetch(`${BASE_URL}game/search/basic?q=${q}`);
+        return response.json();
+    }
+
+    async semanticSearch(q) {
         const response = await fetch(`${BASE_URL}game/search/semantic?q=${q}`);
         return response.json();
     }
