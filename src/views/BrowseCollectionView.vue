@@ -22,7 +22,10 @@ export default {
         SearchBar
     },
     created() {
-        this.fetchCollection();
+        if (this.$route.params.id)
+            this.fetchOtherCollection();
+        else
+            this.fetchUserCollection();
     },
     data() {
         return {
@@ -37,7 +40,7 @@ export default {
         onItemClick(item) {
             this.$router.push({ name: 'details', params: { id: item.game_id } });
         },
-        async fetchCollection() {
+        async fetchUserCollection() {
             if(this.loginService.userId) {
                 const response = await this.gameService.all(this.loginService.userId);
                 if (response.error)
@@ -47,6 +50,13 @@ export default {
             } else {
                 this.message = "Please log in or register to view your collection";
             }
+        },
+        async fetchOtherCollection() {
+            const response = await this.gameService.all(this.$route.params.id);
+            if (response.error)
+                this.message = "This user doesn't exist, or their collection is empty";
+            else
+                this.items = response;
         },
         addItem() {
             this.$router.push('new')

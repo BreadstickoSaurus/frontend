@@ -25,12 +25,12 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/collection',
+      path: '/collection/:id?',
       name: 'collection',
       component: BrowseCollectionView
     },
     {
-      path: '/wishlist',
+      path: '/wishlist/:id?',
       name: 'wishlist',
       component: BrowseWishlistView
     },
