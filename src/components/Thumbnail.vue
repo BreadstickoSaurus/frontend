@@ -28,7 +28,7 @@ export default {
     methods: {
         async getUrl() {
             const images = await this.gameService.fetchImages(this.gameId);
-            this.url = images.find(Boolean) || "./404.png";
+            this.url = images.find(Boolean) || "/404.png";
         }
     }
 }
