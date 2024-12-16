@@ -1,12 +1,10 @@
 <template>
   <main>
     <div class="top-container">
-        <search-bar v-model:search="search"></search-bar>
         <button v-if="this.$route.params.id" id="follow" type="button" @click="onFollowClick">Follow</button>
         <button v-else-if="this.loginService.userId" id="share" type="button" @click="onShareClick">Share</button>
         <button v-if="this.loginService.userId" id="new" type="button" @click="addItem">Add Game</button>
     </div>
-    <p> {{ search }}</p>
     <browse :items="items" @on-item-click="onItemClick"></browse>
     <p>{{ message }}</p>
   </main>
@@ -83,13 +81,11 @@ main {
     margin-top: 1em;
 }
 .top-container {
-    position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
-}
-#new {
-    position: absolute;
-    right: 1em;
+    gap: 1em;
+    padding-right: 2em;
+    box-sizing: border-box;
 }
 </style>
