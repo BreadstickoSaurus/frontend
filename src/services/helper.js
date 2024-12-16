@@ -10,4 +10,20 @@ async function post(url, body) {
     );
 }
 
-export { post };
+async function share(url, title) {
+    if (navigator.share) {
+        console.log(url);
+        try {
+            await navigator.share({
+                title,
+                url
+            });
+        } catch (err) {
+            console.log("share canceled");
+        }
+    } else {
+        alert("share not supported by your browser");
+    }
+  }
+
+export { post, share };

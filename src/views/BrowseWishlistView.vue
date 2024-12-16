@@ -2,6 +2,8 @@
   <main>
     <div class="top-container">
         <search-bar v-model:search="search"></search-bar>
+        <button v-if="this.$route.params.id" id="follow" type="button">Follow</button>
+        <button v-else-if="this.loginService.userId" id="share" type="button" @click="onShareClick">Share</button>
         <button v-if="this.loginService.userId" id="new" type="button" @click="addItem">Add Wish</button>
     </div>
     <p> {{ search }}</p>
@@ -12,6 +14,7 @@
 <script>
 import Browse from '@/components/Browse.vue';
 import SearchBar from '@/components/SearchBar.vue';
+import { share } from '@/services/helper';
 import LoginService from '@/services/LoginService';
 import WishlistService from '@/services/WishlistService';
 
@@ -61,6 +64,9 @@ export default {
         },
         addItem() {
             this.$router.push({name: 'new-wish'})
+        },
+        async onShareClick() {
+            await share(`${this.$route.fullPath}/${this.loginService.userId}`, `Collection app wishlist`);
         }
     }
 }

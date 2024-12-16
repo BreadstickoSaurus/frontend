@@ -8,7 +8,7 @@ import { RouterLink, RouterView } from 'vue-router';
 
     <div class="hamburger-menu"></div>
     <nav :class="{ 'menu-open': isMenuOpen }">
-      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/">Market</RouterLink>
       <RouterLink to="/collection">Collection</RouterLink>
       <RouterLink to="/wishlist">Wishlist</RouterLink>
       <RouterLink to="/Login">Login</RouterLink>
