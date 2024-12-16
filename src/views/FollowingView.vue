@@ -44,7 +44,7 @@ main {
     margin: 0 auto;
 }
 h2 {
-    margin: 2em 0 .5em 0;
+    margin: 1em 0 .5em 0;
 }
 li {
     display: flex;
