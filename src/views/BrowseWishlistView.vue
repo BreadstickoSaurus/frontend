@@ -2,7 +2,7 @@
   <main>
     <div class="top-container">
         <search-bar v-model:search="search"></search-bar>
-        <button v-if="this.$route.params.id" id="follow" type="button">Follow</button>
+        <button v-if="this.$route.params.id" id="follow" type="button" @click="onFollowClick">Follow</button>
         <button v-else-if="this.loginService.userId" id="share" type="button" @click="onShareClick">Share</button>
         <button v-if="this.loginService.userId" id="new" type="button" @click="addItem">Add Wish</button>
     </div>
@@ -63,10 +63,13 @@ export default {
                 this.items = response;
         },
         addItem() {
-            this.$router.push({name: 'new-wish'})
+            this.$router.push({name: 'new-wish'});
         },
         async onShareClick() {
             await share(`${this.$route.fullPath}/${this.loginService.userId}`, `Collection app wishlist`);
+        },
+        onFollowClick() {
+            this.gameService.follow(this.$route.params.id);
         }
     }
 }

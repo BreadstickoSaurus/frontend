@@ -1,4 +1,5 @@
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const FOLLOWED_USERS_KEY = 'folowedUsers';
 import { post } from "@/services/helper";
 import LoginService from "./LoginService";
 
@@ -79,5 +80,21 @@ export default class GamesService {
             }
         );
         return response.json();
+    }
+
+    follow(userId) {
+        const followedUsers = this.getFollowedUsers();
+        if (!followedUsers.includes(userId))
+            followedUsers.push(userId);
+        localStorage.setItem(FOLLOWED_USERS_KEY, JSON.stringify(followedUsers));
+    }
+
+    unfollow(userId) {
+        const followedUsers = this.getFollowedUsers();
+        localStorage.setItem(FOLLOWED_USERS_KEY, JSON.stringify(followedUsers.filter(e => e !== userId)));
+    }
+
+    getFollowedUsers() {
+        return JSON.parse(localStorage.getItem(FOLLOWED_USERS_KEY)) || [];
     }
 }
