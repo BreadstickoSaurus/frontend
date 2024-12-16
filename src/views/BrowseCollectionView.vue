@@ -3,7 +3,7 @@
     <div class="top-container">
         <button v-if="this.$route.params.id" id="follow" type="button" @click="onFollowClick">Follow</button>
         <button v-else-if="this.loginService.userId" id="share" type="button" @click="onShareClick">Share</button>
-        <button v-if="this.loginService.userId" id="new" type="button" @click="addItem">Add Game</button>
+        <button v-if="this.loginService.userId && !this.$route.params.id" id="new" type="button" @click="addItem">Add Game</button>
     </div>
     <browse :items="items" @on-item-click="onItemClick"></browse>
     <p>{{ message }}</p>
