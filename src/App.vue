@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
+import LoginService from './services/LoginService';
 </script>
 
 <template>
@@ -12,7 +13,8 @@ import { RouterLink, RouterView } from 'vue-router';
       <RouterLink to="/collection">Collection</RouterLink>
       <RouterLink to="/wishlist">Wishlist</RouterLink>
       <RouterLink to="/following">Following</RouterLink>
-      <RouterLink to="/Login">Login</RouterLink>
+      <RouterLink to="/login" v-if="!loginService.userId">Login</RouterLink>
+      <RouterLink to="/" v-else @click="onLogoutClick">Logout</RouterLink>
     </nav>
     <div :class="{ 'menu-open': isMenuOpen }" class="hamburger" @click="toggleMenu">
       <span></span>
@@ -27,12 +29,16 @@ import { RouterLink, RouterView } from 'vue-router';
 export default {
   data() {
     return {
-      isMenuOpen: false
+      isMenuOpen: false,
+      loginService: new LoginService()
     };
   },
   methods: {
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
+    },
+    onLogoutClick() {
+      this.loginService.logout();
     }
   }
 };
