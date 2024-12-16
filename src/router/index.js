@@ -4,6 +4,7 @@ import BrowseMarket from '@/views/BrowseMarket.vue'
 import BrowseWishlistView from '@/views/BrowseWishlistView.vue'
 import DetailsView from '@/views/DetailsView.vue'
 import EditView from '@/views/EditView.vue'
+import FollowingView from '@/views/FollowingView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -64,6 +65,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterView
+    },
+    {
+      path: '/following',
+      name: 'following',
+      component: FollowingView
     }
   ]
 })
